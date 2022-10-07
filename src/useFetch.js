@@ -4,10 +4,10 @@ import { useState } from "react"
 export const useFetch = () => {
     // state to store the data
     let [data, setData] = useState('');
-    let [data1,setData1] = useState([]);
+    let [data1, setData1] = useState([]);
 
     //  Function to fetch data from API
-    const extractDataFromApi = (url, payload,condition) => {
+    const extractDataFromApi = (url, payload, condition) => {
         fetch(url, {
             method: 'POST',
             headers: {
@@ -26,14 +26,13 @@ export const useFetch = () => {
             .then(response => response.json())
             .then(res => {
 
-                if(condition){
+                if (condition) {
                     setData(res.data)
-                }else{
+                } else {
                     setData1(res.data);
-                    console.log(data1); 
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => alert(err.message))
     }
-    return [ data, data1, extractDataFromApi ]
+    return [data, data1, extractDataFromApi]
 }

@@ -1,7 +1,7 @@
 import { Button, Card, DisplayText, Select, TextField } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import "../App.css";
-import { useFetch } from "./useFetch";
+import {useFetch} from '../useFetch'
 
 const Fetch = () => {
     // state to fetch data from API using custom hook
@@ -62,7 +62,6 @@ const Fetch = () => {
     // Function to handle each select box dynamically
     const handleDynamicSelect = useCallback(
         (val, ind) => {
-            console.log(ind);
             if (ind < opt.length) {
                 setOpt(opt.splice(0, ind));
                 setSelected(selected.splice(ind + 1));
