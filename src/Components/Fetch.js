@@ -1,13 +1,14 @@
 import { Button, Card, DisplayText, Select, TextField } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import "../App.css";
-import {useFetch} from '../useFetch'
+import { useFetch } from '../useFetch'
 
 const Fetch = () => {
-    // state to fetch data from API using custom hook
+
+    // fetching data from API using custom hook
     let [data, data1, extractDataFromApi] = useFetch([]);
 
-    // State to store the value of select Box
+    // State to store the value of select Boxes
     let [selected, setSelected] = useState([]);
 
     // State to store options for every select box at each index
@@ -32,10 +33,10 @@ const Fetch = () => {
     const [inptDisp, setInptDisp] = useState(false);
 
     // State to store input value of input field 
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState([]);
 
 
-    // Use-Effect to fetch data from first API on every call
+    // to fetch data from first API on every call
     useEffect(() => {
         let url =
             "https://multi-account.sellernext.com/home/public/connector/profile/getAllCategory/";
@@ -53,7 +54,7 @@ const Fetch = () => {
     }, [parentId]);
 
 
-    // Use-effect to set options of select box in a OPT array
+    // to set options of select boxes in a OPT array
     useEffect(() => {
         setOpt([...opt, { ind: option }]);
     }, [data]);
@@ -104,10 +105,9 @@ const Fetch = () => {
         [opt, data1]
     );
 
-    // Function to add attribute from Button click
+    // Function to add attribute 
     const addAttr = () => {
         setCount([...count, 1]);
-        console.log(data1);
     };
 
     // Options for Dynamic Select Boxes
@@ -119,7 +119,6 @@ const Fetch = () => {
             }))
             : [{ label: "Nothind to display", value: "Nothing to display" }];
 
-    // let option1 = [];
     const [option1, setOption1] = useState()
     useEffect(() => {
         let opt2 = [];
@@ -148,15 +147,16 @@ const Fetch = () => {
         setInptDisp(true);
     };
 
-    // function to delete select box from the list 
+    // function to delete select boxes
     const handleDel = (i) => {
         count.splice(i, 1);
         selected1.splice(i, 1)
+        value.splice(i, 1);
         option1.forEach((item) => {
             selected1.forEach((item1) => {
                 if (item1 === item.value) {
                     item.disabled = true;
-                }else item.disabled= false;
+                } else item.disabled = false;
             })
         })
         setOption1(option1)
@@ -213,14 +213,14 @@ const Fetch = () => {
 
                                     <br />
 
-                                    {inptDisp ? (
+                                    {inptDisp && (
                                         <TextField
-                                            value={value}
-                                            onChange={(val) => setValue(val)}
-                                            autoComplete="off"
+                                            value={value[i]}
+                                            onChange={(val) => setValue((v) => {
+                                                v[i] = val
+                                                return [...v]
+                                            })}
                                         />
-                                    ) : (
-                                        ""
                                     )}
                                 </span>
                             </Card>
